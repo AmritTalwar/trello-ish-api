@@ -1,0 +1,5 @@
+{
+  "ignore": ["dist"],
+  "exec": "yarn run start",
+  "ext": "ts,js,json"
+}

@@ -1,0 +1,42 @@
+## PROD ENV VARS WILL BE PROVIDED IN THE PROD ENV
+version: "3"
+services:
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+
+  redis:
+    image: "bitnami/redis:latest"
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+    hostname: redis
+    ports:
+      - 6379:6379
+
+  backend:
+    build: ./
+    volumes:
+      - ./src:/app/src
+    environment:
+      SERVER_PORT: 8080
+      DB_PORT: 5432
+      DB_HOST: postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: postgres
+      REDIS_PORT: 6379
+      REDIS_HOST: redis
+      REDIS_SECRETKEY: redissecretkey
+      FRONTEND_HOST: http://frontend:3000
+      BACKEND_HOST: http://backend:8080
+    ports:
+      - 8080:8080
+    entrypoint: yarn start:dev ## Runs nodemon for hotreloading in the container
+    depends_on:
+      - postgres
+      - redis

@@ -1,0 +1,42 @@
+{
+  "name": "trello-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Amrit Talwar <amrit-talwar@hotmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/connect-redis": "^0.0.14",
+    "@types/express": "^4.17.6",
+    "@types/hapi__joi": "^17.1.0",
+    "@types/jest": "^26.0.4",
+    "@types/node": "^13.13.5",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
+    "ts-jest": "^25.2.0",
+    "typescript": "3.4"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@types/lodash": "^4.14.157",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-redis": "^4.0.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-session": "^1.17.1",
+    "lodash": "^4.17.15",
+    "pg": "^7.3.0",
+    "redis": "^3.0.2",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.24",
+    "uuid": "^8.2.0"
+  },
+  "scripts": {
+    "start:dev": "nodemon -L --config nodemon.json",
+    "start": "yarn build && yarn start:server",
+    "build": "tsc",
+    "start:server": "node ./dist/startServer.js"
+  }
+}
