@@ -8,32 +8,12 @@ export const createList = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { name, boardId } = req.body;
-  const list: List = new List();
+  const { name } = req.body;
+  const list: List = List.create();
 
   list.name = name;
-
-  const board:
-    | Board
-    | undefined = await getConnection()
-    .createQueryBuilder()
-    .select("board")
-    .from(Board, "board")
-    .where("board.uuid = :uuid", { uuid: boardId })
-    .leftJoinAndSelect("board.lists", "lists")
-    .leftJoinAndSelect("board.user", "user")
-    .leftJoinAndSelect("board.team", "team")
-    .getOne();
-
-  if (!board) {
-    return response(res, 404, {
-      message: `board with id ${boardId} not found`,
-    });
-  }
-
-  list.board = board;
-
-  list.order = board.lists.length + 1;
+  list.board = req.board;
+  list.order = req.board.lists.length + 1;
 
   await list.save();
 
