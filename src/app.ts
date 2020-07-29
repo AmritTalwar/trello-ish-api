@@ -4,12 +4,12 @@ import bodyParser = require("body-parser");
 import { RedisClient } from "redis";
 import { RedisStore } from "connect-redis";
 import { response } from "./utils/response.util";
-import { UserRouter } from "./Routes/user.router";
-import { AuthRouter } from "./Routes/auth.router";
-import { TeamRouter } from "./Routes/team.router";
-import { BoardRouter } from "./Routes/board.router";
-import { ListRouter } from "./Routes/list.router";
-import { TaskRouter } from "./Routes/task.controller";
+import { UserRouter } from "./Routers/user.router";
+import { AuthRouter } from "./Routers/auth.router";
+import { TeamRouter } from "./Routers/team.router";
+import { BoardRouter } from "./Routers/board.router";
+import { ListRouter } from "./Routers/list.router";
+import { TaskRouter } from "./Routers/task.controller";
 import { sessionAuthGuard } from "./middlewares/sessionAuthGuard.middleware";
 
 const session = require("express-session");
