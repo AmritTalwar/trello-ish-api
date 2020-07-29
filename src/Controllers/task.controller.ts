@@ -1,7 +1,6 @@
 import { Response, Request } from "express";
 import { List } from "../Entities/list.entity";
 import { Task } from "../Entities/task.entity";
-import { User } from "../Entities/user.entity";
 import { getConnection } from "typeorm";
 
 import { response } from "../utils/response.util";
@@ -34,7 +33,6 @@ export const createTask = async (
     return response(res, 404, { message: `could not find list` });
   }
 
-  console.log(req.user);
   const listBoardOwnedByTeam: Boolean = Boolean(list.board.team);
 
   if (listBoardOwnedByTeam) {

@@ -22,8 +22,6 @@ export const verifyUserCanCreateList = async (
     .leftJoinAndSelect("board.team", "team")
     .leftJoinAndSelect("team.users", "users")
     .getOne();
-  console.log("board");
-  console.log(board);
 
   if (!board) {
     return response(res, 404, {
