@@ -8,9 +8,9 @@ import {
   ManyToOne,
 } from "typeorm";
 
-import { User } from "./user.entity";
 import { Team } from "./team.entity";
 import { List } from "./list.entity";
+import { User } from "./user.entity";
 
 @Entity()
 @Unique(["name", "team"])

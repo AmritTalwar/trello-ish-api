@@ -39,5 +39,3 @@ export const createList = async (
 
   return response(res, 201, { payload: list });
 };
-
-export const checkUserCanModify;
