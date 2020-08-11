@@ -9,8 +9,12 @@ import { AuthRouter } from "./Routers/auth.router";
 import { TeamRouter } from "./Routers/team.router";
 import { BoardRouter } from "./Routers/board.router";
 import { ListRouter } from "./Routers/list.router";
-import { TaskRouter } from "./Routers/task.controller";
+import { TaskRouter } from "./Routers/task.router";
 import { sessionAuthGuard } from "./middlewares/sessionAuthGuard.middleware";
+import {
+  checkUserOwnesResources,
+  verifyUserIsProtectedResourceParentOwner,
+} from "./middlewares/general.middleware";
 
 const session = require("express-session");
 const redis = require("redis");
@@ -60,6 +64,8 @@ app.use("/auth", AuthRouter);
 
 app.use(sessionAuthGuard);
 app.use("/user", UserRouter);
+
+app.use(verifyUserIsProtectedResourceParentOwner);
 app.use("/team", TeamRouter);
 app.use("/board", BoardRouter);
 app.use("/list", ListRouter);
