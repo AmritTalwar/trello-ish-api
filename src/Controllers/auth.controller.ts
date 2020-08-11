@@ -16,8 +16,6 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     .where("user.email = :email", { email: email })
     .addSelect("user.password")
     .addSelect("user.salt")
-    .leftJoinAndSelect("user.boards", "boards")
-    .leftJoinAndSelect("user.teams", "teams")
     .getOne();
 
   if (!user) {

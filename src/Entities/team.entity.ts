@@ -23,8 +23,8 @@ export class Team extends BaseEntity {
 
   @ManyToMany(() => User, (user) => user.teams)
   @JoinTable()
-  users: User[];
+  members: User[];
 
-  @OneToMany(() => Board, (board) => board.team)
+  @OneToMany(() => Board, (board) => board.ownerTeam)
   boards: Board[];
 }

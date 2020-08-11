@@ -4,6 +4,9 @@ import {
   Column,
   BaseEntity,
   ManyToOne,
+  OneToMany,
+  OneToOne,
+  getConnection,
 } from "typeorm";
 
 import { User } from "./user.entity";
@@ -23,9 +26,25 @@ export class Task extends BaseEntity {
   @ManyToOne(() => List, (list) => list.tasks)
   list: List;
 
-  @ManyToOne(() => User, (user) => user.tasks, { nullable: true })
-  owner: User;
+  @OneToOne(() => User, (user) => user.assignedTasks, { nullable: true })
+  assignee: User;
 
   @Column()
   order: number;
+
+  async getParentOwners(): Promise<User[]> {
+    const task: Task | undefined = await Task.findOne({
+      where: { uuid: this.uuid },
+      relations: ["list.board.ownerUser", "list.board.ownerTeam.members"],
+    });
+
+    if (!task) {
+      return [];
+    }
+
+    if (task.list.board.ownerUser) {
+      return [task.list.board.ownerUser];
+    }
+    return task.list.board.ownerTeam.members;
+  }
 }

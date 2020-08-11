@@ -10,10 +10,12 @@ export const createList = async (
 ): Promise<Response> => {
   const { name } = req.body;
   const list: List = List.create();
+  const board: Board = req.board;
 
   list.name = name;
-  list.board = req.board;
-  list.order = req.board.lists.length + 1;
+  list.board = board;
+
+  list.order = (await board.getLists()).length + 1;
 
   await list.save();
 

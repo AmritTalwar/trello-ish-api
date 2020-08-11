@@ -7,6 +7,7 @@ import {
   BeforeInsert,
   Unique,
   ManyToMany,
+  JoinTable,
 } from "typeorm";
 
 import * as bcrypt from "bcryptjs";
@@ -32,14 +33,14 @@ export class User extends BaseEntity {
   @Column({ select: false })
   salt: string;
 
-  @OneToMany(() => Task, (task) => task.owner, { nullable: true })
-  tasks: Task[];
+  @OneToMany(() => Task, (task) => task.assignee, { nullable: true })
+  assignedTasks: Task[];
 
-  @ManyToMany(() => Team, (team) => team.users, { nullable: true })
+  @ManyToMany(() => Team, (team) => team.members, { nullable: true })
   teams: Team[];
 
-  @OneToMany(() => Board, (board) => board.user, { nullable: true })
-  boards: Board[];
+  @OneToMany(() => Board, (board) => board.ownerUser, { nullable: true })
+  personalBoards: Board[];
 
   @BeforeInsert()
   async hashPassword() {

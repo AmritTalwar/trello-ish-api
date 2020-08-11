@@ -10,7 +10,7 @@ export const createTeam = async (
 
   const team: Team = new Team();
   team.name = name;
-  team.users = [req.user];
+  team.members = [req.user];
 
   await team.save();
 

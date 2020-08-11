@@ -11,9 +11,9 @@ export const createBoard = async (
   board.name = req.body.name;
 
   if (!req.body.teamId) {
-    board.user = req.user;
+    board.ownerUser = req.user;
   } else {
-    board.team = req.team;
+    board.ownerTeam = req.team;
   }
 
   await board.save();

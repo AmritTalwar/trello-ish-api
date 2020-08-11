@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import { Task } from "../Entities/task.entity";
 
 import { response } from "../utils/response.util";
+import { List } from "../Entities/list.entity";
 
 export const createTask = async (
   req: Request,
@@ -10,11 +11,13 @@ export const createTask = async (
   const { title, description } = req.body;
 
   const task: Task = Task.create();
+  const list: List = req.list;
+
   task.title = title;
   task.description = description;
 
-  task.list = req.list;
-  task.order = req.list.tasks.length + 1;
+  task.list = list;
+  task.order = (await list.getTasks()).length + 1;
 
   await task.save();
 
